@@ -1,0 +1,55 @@
+{
+  "config_id": "shezan-cakes-and-snacks-mallepally",
+  "version": "1.0",
+  "address": {
+    "label": "Shezan Cakes and Snacks, Mallepally",
+    "formal_address": "11, 3-913/1, Jamia Masjid Rd, Mozampura, Mallepally, New Mallepally, Hyderabad, Telangana 500001",
+    "city": "Hyderabad",
+    "region_code": "IN"
+  },
+  "landmark": {
+    "name": "Jamia Masjid Mallepally",
+    "type": "mosque"
+  },
+  "building_description": {
+    "distinguishing_features": [
+      "Commercial bakery storefront on the main road",
+      "Clear 'Shezan Cakes And Snack' branding and display counters visible from the street"
+    ]
+  },
+  "approach_from": [
+    {
+      "direction_label": "Coming via Vijayanagar Colony / Mallepally X Roads",
+      "instructions": "Head towards Jamia Masjid Road from Mallepally X Roads. The shop is on the main road, near the mosque.",
+      "landmark_sequence": ["Mallepally X Roads"]
+    },
+    {
+      "direction_label": "Coming via Asif Nagar Main Road",
+      "instructions": "Turn onto Jamia Masjid Road leading into Mallepally, proceed straight toward the Jamia Masjid landmark, and look for the storefront.",
+      "landmark_sequence": ["Jamia Masjid Mallepally"]
+    }
+  ],
+  "entrance_details": {
+    "location": "Main road-facing storefront entrance",
+    "identifying_marks": "Large 'Shezan Cakes And Snack' signage above the entrance",
+    "access_notes": "Ground-floor commercial street access, direct walk-in during business hours — no gate, no security, no floor/unit navigation needed"
+  },
+  "escalation": {
+    "trigger_conditions": [
+      "Driver still can't locate the storefront after being guided through both approach directions",
+      "Driver reports the shop signage or the mosque is no longer visible/recognizable"
+    ],
+    "contact": {
+      "contact_name": "the shop owner",
+      "recipient_phone": "XXXXXXXXXX"
+    }
+  },
+  "language": {
+    "locale": "hi-IN",
+    "allow_code_switch": true
+  },
+  "metadata": {
+    "created_at": "2026-08-23",
+    "last_verified_at": "2026-08-23"
+  }
+}

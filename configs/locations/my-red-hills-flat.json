@@ -1,0 +1,62 @@
+{
+  "config_id": "my-red-hills-flat",
+  "version": "1.0",
+  "address": {
+    "label": "Al Mannan Residency, Red Hills, Hyderabad",
+    "formal_address": "11-5-185, Flat 102, Behind Masjid e Teen Posh, Red Hills, Nampally, Hyderabad - 500004",
+    "city": "Hyderabad",
+    "region_code": "IN"
+  },
+  "landmark": {
+    "name": "Masjid e Teen Posh",
+    "type": "mosque"
+  },
+  "building_description": {
+    "distinguishing_features": [
+      "Cream and brown paint",
+      "Corner building at a right turn at the dead end of the street"
+    ]
+  },
+  "approach_from": [
+    {
+      "direction_label": "Coming via Criminal Court Road",
+      "instructions": "Enter the street opposite the complex with SBI and ICICI ATMs. Continue to the dead end — the building is on the corner where the street turns right.",
+      "landmark_sequence": ["SBI/ICICI ATM complex"]
+    },
+    {
+      "direction_label": "Coming via road opposite Himalaya Hotel / Masjid Darul Irfan Road",
+      "instructions": "Look for Red Hills Diagnostic Lab. If it is on your right, cross it and take an immediate left. The building is the last one on that street, at the dead-end corner on the left.",
+      "landmark_sequence": ["Red Hills Diagnostic Lab"]
+    }
+  ],
+  "entrance_details": {
+    "location": "Wide black gate",
+    "identifying_marks": "'Al Mannan Residency' written in large blue-painted font beside the black gate",
+    "access_notes": "No security guard on site — driver enters directly through the black gate"
+  },
+  "units": [
+    {
+      "unit_identifier": "Flat 102",
+      "floor": "First floor",
+      "in_building_directions": "Take the lift to the first floor. It is the 2nd door on the left."
+    }
+  ],
+  "escalation": {
+    "trigger_conditions": [
+      "Driver still can't locate the building after being guided through both approach directions",
+      "Driver reports Masjid e Teen Posh or Red Hills Diagnostic Lab is no longer recognizable/visible"
+    ],
+    "contact": {
+      "contact_name": "Sadiq",
+      "recipient_phone": "XXXXXXXXXX"
+    }
+  },
+  "language": {
+    "locale": "hi-IN",
+    "allow_code_switch": true
+  },
+  "metadata": {
+    "created_at": "2026-08-23",
+    "last_verified_at": "2026-08-23"
+  }
+}

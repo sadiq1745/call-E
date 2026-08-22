@@ -4,7 +4,9 @@
   "description": "Last-500-metres landmark navigation voice agent (CALL-E hackathon)",
   "main": "index.js",
   "scripts": {
-    "phase0": "node src/phase0-test-call.js"
+    "phase0": "node src/phase0-test-call.js",
+    "validate:configs": "node scripts/validate-configs.js",
+    "check:calle-client": "node --env-file=.env scripts/check-calle-client.js"
   },
   "keywords": [],
   "author": "",
