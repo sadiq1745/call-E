@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Zing — Request Navigation Help (demo trigger)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 1.1rem; color: #444; }
+  label { display: block; margin-top: 16px; font-size: 0.9rem; font-weight: bold; }
+  select, input, button { width: 100%; padding: 8px; margin-top: 4px; font-size: 1rem; box-sizing: border-box; }
+  button { margin-top: 20px; background: #222; color: #fff; border: none; cursor: pointer; }
+  button:disabled { background: #999; cursor: default; }
+  #result { margin-top: 24px; padding: 16px; border: 1px solid #ddd; border-radius: 6px; display: none; }
+  #result.revealed { border-color: #2a7; }
+  .status { font-weight: bold; }
+  .number { font-size: 1.3rem; letter-spacing: 1px; margin-top: 8px; }
+  .summary { margin-top: 12px; font-size: 0.9rem; color: #555; }
+</style>
+</head>
+<body>
+  <h1>Zing — driver navigation help (demo trigger, not the real app)</h1>
+
+  <label for="configId">Location</label>
+  <select id="configId"></select>
+
+  <label for="phone">Driver phone (E.164, e.g. +91XXXXXXXXXX)</label>
+  <input id="phone" type="tel" placeholder="+91XXXXXXXXXX" />
+
+  <button id="triggerBtn">Request Navigation Help</button>
+
+  <div id="result">
+    <div class="status" id="status"></div>
+    <div>Escalation contact: <span id="contactName"></span></div>
+    <div class="number" id="number"></div>
+    <div class="summary" id="summary"></div>
+  </div>
+
+<script>
+  const configSelect = document.getElementById("configId");
+  const phoneInput = document.getElementById("phone");
+  const triggerBtn = document.getElementById("triggerBtn");
+  const resultBox = document.getElementById("result");
+  const statusEl = document.getElementById("status");
+  const contactNameEl = document.getElementById("contactName");
+  const numberEl = document.getElementById("number");
+  const summaryEl = document.getElementById("summary");
+
+  let pollTimer = null;
+
+  async function loadConfigs() {
+    const res = await fetch("/api/configs");
+    const { configs } = await res.json();
+    configSelect.innerHTML = configs
+      .map((c) => `<option value="${c.configId}">${c.label}</option>`)
+      .join("");
+  }
+
+  function stopPolling() {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = null;
+  }
+
+  async function pollStatus(callId) {
+    const res = await fetch(`/api/calls/${encodeURIComponent(callId)}`);
+    const data = await res.json();
+
+    statusEl.textContent = `Status: ${data.status}`;
+    contactNameEl.textContent = data.contactName;
+    numberEl.textContent = data.number;
+    resultBox.classList.toggle("revealed", data.revealed);
+
+    if (data.isTerminal) {
+      stopPolling();
+      triggerBtn.disabled = false;
+      summaryEl.textContent = data.resolutionSummary
+        ? `Resolution: ${data.resolutionSummary}`
+        : "Call ended (no resolution summary returned).";
+    }
+  }
+
+  triggerBtn.addEventListener("click", async () => {
+    const configId = configSelect.value;
+    const phone = phoneInput.value.trim();
+    if (!configId || !phone) {
+      alert("Pick a location and enter a driver phone number.");
+      return;
+    }
+
+    triggerBtn.disabled = true;
+    stopPolling();
+    resultBox.style.display = "block";
+    resultBox.classList.remove("revealed");
+    summaryEl.textContent = "";
+    statusEl.textContent = "Status: triggering call...";
+
+    const res = await fetch("/api/calls", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ configId, phone }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      statusEl.textContent = `Error: ${err.error}`;
+      triggerBtn.disabled = false;
+      return;
+    }
+
+    const data = await res.json();
+    contactNameEl.textContent = data.contactName;
+    numberEl.textContent = data.maskedNumber;
+    statusEl.textContent = `Status: ${data.status}`;
+
+    pollTimer = setInterval(() => pollStatus(data.callId), 3000);
+  });
+
+  loadConfigs();
+</script>
+</body>
+</html>

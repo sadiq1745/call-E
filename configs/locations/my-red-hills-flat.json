@@ -38,7 +38,8 @@
     {
       "unit_identifier": "Flat 102",
       "floor": "First floor",
-      "in_building_directions": "Take the lift to the first floor. It is the 2nd door on the left."
+      "in_building_directions": "Take the lift to the first floor. It is the 2nd door on the left.",
+      "consignee_name": "Sadiq"
     }
   ],
   "escalation": {

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-// Mirrors src/config/location-config.schema.json (source of truth for the
-// shape). Kept in sync by hand — the JSON Schema file is small and stable,
-// not worth generating this from it.
+// Mirrors references/location-config.schema.json (source of truth for the
+// shape, and useful if you want the schema in a non-JS context too). Kept
+// in sync by hand — small and stable, not worth generating this from it.
 export const locationConfigSchema = z.object({
   config_id: z.string(),
   version: z.literal("1.0"),
@@ -63,15 +63,12 @@ export const locationConfigSchema = z.object({
   }),
 
   language: z.object({
-    locale: z.enum(["en-IN", "hi-IN"]),
+    locale: z.string(),
     allow_code_switch: z.boolean().default(true),
   }),
 
   metadata: z
     .object({
-      // Examples currently store bare dates ("2026-08-23"), not full
-      // ISO datetimes, so this stays a plain string rather than
-      // z.string().datetime() to avoid rejecting real config data.
       created_at: z.string().optional(),
       last_verified_at: z.string().optional(),
     })

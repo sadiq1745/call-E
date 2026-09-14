@@ -13,20 +13,26 @@
   },
   "building_description": {
     "distinguishing_features": [
-      "Commercial bakery storefront on the main road",
+      "Sits directly on a traffic circle/roundabout — not a straight stretch of road",
+      "Commercial bakery storefront right at the edge of the circle",
       "Clear 'Shezan Cakes And Snack' branding and display counters visible from the street"
     ]
   },
   "approach_from": [
     {
-      "direction_label": "Coming via Vijayanagar Colony / Mallepally X Roads",
-      "instructions": "Head towards Jamia Masjid Road from Mallepally X Roads. The shop is on the main road, near the mosque.",
-      "landmark_sequence": ["Mallepally X Roads"]
+      "direction_label": "Coming from Amba Hospital / New Riyan Hotel side (northwest)",
+      "instructions": "Head down Raj Janaki Prasad Road until you reach a large roundabout/traffic circle. The shop is right on the circle.",
+      "landmark_sequence": ["Amba Hospital", "New Riyan Hotel"]
     },
     {
-      "direction_label": "Coming via Asif Nagar Main Road",
-      "instructions": "Turn onto Jamia Masjid Road leading into Mallepally, proceed straight toward the Jamia Masjid landmark, and look for the storefront.",
-      "landmark_sequence": ["Jamia Masjid Mallepally"]
+      "direction_label": "Coming from Hadi Hospital / Moghal Ground side (east)",
+      "instructions": "Head down Jamia Masjid Road towards the roundabout/traffic circle — the shop is right on the circle, roughly opposite the side you're entering from.",
+      "landmark_sequence": ["Hadi Hospital", "Moghal Ground"]
+    },
+    {
+      "direction_label": "Coming from Anwarul Uloom College of Pharmacy side (south)",
+      "instructions": "Head north until you reach the roundabout/traffic circle. The shop sits on the circle itself.",
+      "landmark_sequence": ["Anwarul Uloom College of Pharmacy"]
     }
   ],
   "entrance_details": {
@@ -41,7 +47,7 @@
     ],
     "contact": {
       "contact_name": "the shop owner",
-      "recipient_phone": "XXXXXXXXXX"
+      "recipient_phone": "+14155550199"
     }
   },
   "language": {

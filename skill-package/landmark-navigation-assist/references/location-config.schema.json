@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "LastFiveHundredMetresLocationConfig",
+  "title": "LandmarkNavigationLocationConfig",
   "description": "A reusable, building-level navigation config. One config per physical building/gate — NOT per delivery or per resident. Unit-specific details are passed at call-time, not baked in here, so one config serves every delivery to that building.",
   "type": "object",
   "required": ["config_id", "version", "address", "landmark", "building_description", "approach_from", "entrance_details", "escalation", "language"],
@@ -18,7 +18,7 @@
         "label": { "type": "string", "description": "Human-friendly name, e.g. 'XYZ Apartments, Kondapur'" },
         "formal_address": { "type": "string", "description": "Full postal address, for the record / fallback" },
         "city": { "type": "string" },
-        "region_code": { "type": "string", "description": "CALL-E recipient region code, e.g. 'IN'" }
+        "region_code": { "type": "string", "description": "CALL-E recipient region code for this address's country, e.g. 'IN', 'US'" }
       }
     },
 
@@ -92,7 +92,7 @@
     "escalation": {
       "type": "object",
       "required": ["trigger_conditions", "contact"],
-      "description": "Escalation is driver-confirmed, inside the same call, and resolves entirely within that call — no automated action after the call ends. If the driver confirms they want a real call, the agent reveals the customer's phone number to the driver and instructs them to call directly, then ends the call. No webhook, no second CALL-E call, no SMS.",
+      "description": "Escalation is driver-confirmed, inside the same call, and resolves entirely within that call — no automated action after the call ends. If the driver confirms they want a real call, the agent reveals the contact's phone number to the driver and instructs them to call directly, then ends the call. No webhook, no second CALL-E call, no SMS.",
       "properties": {
         "trigger_conditions": {
           "type": "array",
@@ -104,7 +104,7 @@
           "required": ["contact_name", "recipient_phone"],
           "properties": {
             "contact_name": { "type": "string", "description": "e.g. 'Sadiq' or 'the shop owner' — used when the agent tells the driver who they're calling" },
-            "recipient_phone": { "type": "string", "description": "Number the agent reads aloud to the driver on confirmed escalation, e.g. 'You can reach Sadiq directly at +14155550199.' The driver calls it themselves after this call ends." }
+            "recipient_phone": { "type": "string", "description": "Number the agent reads aloud to the driver on confirmed escalation. Use a real, reachable number in your own deployment — never commit a real number into a public repo; this schema file itself only ever uses reserved fictional examples like '+14155550199'." }
           }
         }
       }
@@ -114,8 +114,8 @@
       "type": "object",
       "required": ["locale"],
       "properties": {
-        "locale": { "type": "string", "enum": ["en-IN", "hi-IN"] },
-        "allow_code_switch": { "type": "boolean", "default": true, "description": "Hinglish is normal in this context — don't force single-language rigidity" }
+        "locale": { "type": "string", "description": "BCP 47 locale for the call, e.g. 'en-IN', 'hi-IN', 'en-US'. Must be a locale/region combination CALL-E currently supports for outbound calls — check docs.heycall-e.com/regions before deploying to a new country." },
+        "allow_code_switch": { "type": "boolean", "default": true, "description": "Whether the driver may switch languages mid-call (e.g. Hinglish). Recommended true for any bilingual/multilingual region — don't force single-language rigidity." }
       }
     },
 
@@ -123,7 +123,7 @@
       "type": "object",
       "properties": {
         "created_at": { "type": "string", "format": "date-time" },
-        "last_verified_at": { "type": "string", "format": "date-time", "description": "Configs go stale — landmark pharmacies close, buildings get repainted. This field exists so a real product would know when to prompt a re-check. Not enforced for the hackathon, just modeled." }
+        "last_verified_at": { "type": "string", "format": "date-time", "description": "Configs go stale — landmark pharmacies close, buildings get repainted. This field exists so a real deployment knows when to prompt a re-check." }
       }
     }
   }
