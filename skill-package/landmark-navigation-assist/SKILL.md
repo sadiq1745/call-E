@@ -1,3 +1,9 @@
+---
+name: landmark-navigation-assist
+description: Turns a pre-written, building-level location config into a CALL-E outbound phone-call task that guides a delivery driver through the last few hundred metres to a specific building using landmarks instead of GPS or postal text. Use when a driver requests navigation help for an address that already has known landmark/approach notes; not for addresses with no config, and not as a replacement for turn-by-turn GPS on the earlier, unambiguous part of a route.
+license: MIT
+---
+
 # Landmark Navigation Assist
 
 **Purpose:** Turns a pre-written, building-level location config into a CALL-E `task` instruction that guides a delivery driver (or repeat ride-hailing pickup) through the last few hundred meters to a specific building, using landmarks instead of GPS/text directions. Built for addresses where map pins and postal text routinely fail — landmark-based, informally-numbered, or newly-built areas — and the driver's own support call would otherwise be the fallback.
@@ -58,16 +64,13 @@ Not an address-reader. It's a guided conversation: the agent asks which directio
 }
 ```
 
-## Safety Guarantees / Real-World Side Effects
+## Safety and Side Effects
 
-- **Outbound-only.** This skill assumes an outbound call triggered by an explicit driver action. It does not implement or assume any inbound "driver calls in" flow.
-- **No automatic escalation action.** Escalation requires the driver to explicitly confirm they want a contact number, and even then the only action taken is the agent reading a number aloud — no webhook fires, no second CALL-E call is placed, no SMS is sent. The driver must dial the number themselves after the call ends.
-- **No data persisted beyond what you choose to log.** This skill does not write to any database, third-party service, or webhook on its own. What you do with the call result (log it, discard it) is entirely up to your integration.
-- **Real phone numbers/PII must never be committed alongside a config example.** Every example in this skill package uses the reserved fictional number `+14155550199` — replace with a real number only in your own private deployment, never in a config you intend to share or commit publicly.
-
-## Cancellation / Rollback Behavior
-
-Not applicable — this is a single, one-shot outbound call, not a recurring or scheduled workflow. There is nothing to cancel or roll back once the call completes; the only "undo" is that escalation itself never takes an automated action to undo.
+This skill places a real outbound phone call. See `references/safety.md` for
+the full safety contract (explicit user intent, phone number handling,
+escalation boundaries, cancellation behavior). Summary: outbound-only,
+driver-initiated, no automated escalation action, no webhook/second call/SMS,
+no recurring schedule to cancel.
 
 ## Compatibility Notes
 
